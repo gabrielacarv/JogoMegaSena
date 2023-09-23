@@ -69,7 +69,6 @@ namespace JogoMegaSena.Controllers
 
             List<int> Numeros = new List<int>() { jogo.PrimeiroNro, jogo.SegundoNro, jogo.TerceiroNro, jogo.QuartoNro, jogo.QuintoNro, jogo.SextoNro};
 
-            //Numeros.Add(jogo);
             if (!ValidarNumerosDiferentes(Numeros))
             {
                 return ApiBadRequestResponse(ModelState, "Dados Inválidos, números repetidos");
@@ -77,19 +76,16 @@ namespace JogoMegaSena.Controllers
 
             bool ValidarNumerosDiferentes(List<int> numeros)
             {
-                // Use um HashSet para rastrear números únicos.
                 HashSet<int> numerosUnicos = new HashSet<int>();
 
                 foreach (int numero in numeros)
                 {
-                    // Se tentarmos adicionar um número que já existe no HashSet, não será adicionado novamente.
                     if (!numerosUnicos.Add(numero))
                     {
-                        return false; // Encontramos um número repetido, a validação falha.
+                        return false;
                     }
                 }
 
-                // Se chegarmos até aqui, todos os números são diferentes.
                 return true;
             }
 
