@@ -11,9 +11,9 @@ namespace JogoMegaSena.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RegistroJogoController : PrincipalController
+    public class JogoController : PrincipalController
     {
-        public RegistroJogoController()
+        public JogoController()
         {
             _registroJogoCaminhoArquivo = Path.Combine(Directory.GetCurrentDirectory(), "Data", "jogosMega.json");
         }
@@ -44,7 +44,14 @@ namespace JogoMegaSena.Controllers
         }
         #endregion
 
-        [HttpPost]
+        [HttpGet("ObterTodosOsJogos")]
+        public IActionResult Get()
+        {
+            List<RegistroJogo> jogos = LerJogosDoArquivo();
+            return Ok(jogos);
+        }
+
+        [HttpPost("RegistrarJogo")]
         public IActionResult Post([FromBody] NovoRegistroJogoViewModel jogo)
         {
             if (!ModelState.IsValid)
